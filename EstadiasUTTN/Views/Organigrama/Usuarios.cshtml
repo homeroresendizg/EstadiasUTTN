@@ -1,0 +1,58 @@
+﻿@model List<EstadiasUTTN.Models.ViewModels.ListUsersViewModel>
+@{
+    ViewBag.Title = "Usuarios";
+}
+
+
+<script>
+    function mostrarOcultar(id) {
+        var elemento = document.getElementById(id);
+        if (!elemento) {
+            return true;
+        }
+        if (elemento.style.display == "none") {
+            elemento.style.display = "block"
+        } else {
+            elemento.style.display = "none"
+        };
+        return true;
+    };
+</script>
+@{
+    if (User.IsInRole("Administrador"))
+    {
+        using (Html.BeginForm("Usuarios", "Organigrama", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            <div class="row" style="text-align:left;padding:30px">
+                <h1>@ViewBag.Title</h1>
+                <a href="~/Organigrama/UsuariosOrgAll" class="btn btn-primary">Todos los registros</a>
+            </div>
+            <div class="container">
+                <div class="table-responsive">
+                    <table class="table">
+                        <tr>
+                            <th>Usuarios que han subido registros</th>
+                            <th></th>
+                            <th></th>
+                            <th>Acción</th>
+                        </tr>
+                        @foreach (var oElemento in Model)
+                        {
+                            <tr>
+                                <td>@oElemento.Nombre @oElemento.Apellido</td>
+                                <td></td>
+                                <td></td>
+                                <td>@Html.ActionLink("Ver", "UsuariosOrg", new { iduser = oElemento.Idusuario }, new { @class = "btn btn-info" }) </td>
+                            </tr>
+                        }
+                    </table>
+                </div>
+            </div>
+        }
+    }
+    else
+    {
+        <p class="lead">No cuenta con permisos para acceder a esta sección.</p>
+        <p class="lead">Inicie sesión o contacte con un administrador.</p>
+    }
+}

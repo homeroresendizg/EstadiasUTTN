@@ -1,0 +1,52 @@
+﻿@model EstadiasUTTN.Models.ViewModels.ListUsersViewModel
+@{
+    ViewBag.Title = "Roles";
+    List<SelectListItem> usuarios = (List<SelectListItem>)ViewBag.usuarios;
+    List<SelectListItem> roles = (List<SelectListItem>)ViewBag.roles;
+}
+
+<h2>Roles</h2>
+
+
+@{
+    if (User.IsInRole("Administrador"))
+    {
+        using (Html.BeginForm("Roles", "Account", FormMethod.Post))
+        {
+            <div class="row">
+                <div class="col-md-12">
+                    <div>
+                        @Html.Label("Usuario")
+                        <br />
+                        @Html.DropDownList("IdUserName", usuarios, new { @class = "form-control" })
+
+                        @Html.ValidationMessage("IdUserName", null, new { @class = "red" })
+                    </div>
+                    <div>
+                        @Html.Label("Rol")
+                        <br />
+                        @Html.DropDownList("Rol", roles, new { @class = "form-control" })
+
+                        @Html.ValidationMessage("Rol", null, new { @class = "red" })
+                    </div>
+
+
+                    <br />
+                    <div style="text-align:right">
+                        <input value="Guardar" class="btn btn-primary" type="submit" />
+                    </div>
+                </div>
+            </div>
+        }
+
+    }
+    else
+    {
+        <main role="main" class="flex-shrink-0">
+            <div class="container">
+                <p class="lead">No cuenta con permisos para acceder a esta sección.</p>
+                <p class="lead">Inicie sesión o contacte con un administrador.</p>
+            </div>
+        </main>
+    }
+}

@@ -1,0 +1,64 @@
+﻿@model List<EstadiasUTTN.Models.ViewModels.ListOrganigramaViewModel>
+
+
+@{
+    ViewBag.Title = "Subir";
+}
+
+<h1>@ViewBag.Title</h1>
+
+<script type="text/javascript">
+    function DeleteConfirm() {
+        if (confirm("¿Seguro que quiere eliminar este registro?"))
+            return true;
+        else
+            return false;
+    }
+</script>
+
+
+@using (Html.BeginForm("Create", "Organigrama", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    if (User.IsInRole("Usuario") || User.IsInRole("Administrador"))
+    {
+        <label for="file">Subir archivo</label>
+        <input type="file" name="file" id="file" />
+        <br />
+
+        <input type="submit" class="btn btn-primary" value="Subir archivo" />
+        <br />
+        @ViewBag.Message
+        <br />
+
+        <h2>Lista de documentos</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Id</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Fecha</th>
+                    <th scope="col">Enlace</th>
+                    <th scope="col">Eliminar</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var oElemento in Model)
+                {
+                    <tr>
+                        <td>@oElemento.Id</td>
+                        <td>@oElemento.Name</td>
+                        <td>@oElemento.Datetime</td>
+                        <td>@Html.ActionLink("Descargar", "Download", new { ImageName = oElemento.Name }) </td>
+                        <td>@Html.ActionLink("Eliminar", "DeleteFile", new { ImageDelete = oElemento.Name }, new { onclick = "return  DeleteConfirm()" })</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p class="lead">No cuenta con permisos para acceder a esta sección.</p>
+        <p class="lead">Inicie sesión o contacte con un administrador.</p>
+    }
+
+}

@@ -1,0 +1,29 @@
+﻿@using Microsoft.AspNet.Identity
+@using EstadiasUTTN.Models;
+@using Microsoft.AspNet.Identity.EntityFramework;
+
+@if (Request.IsAuthenticated)
+{
+    var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext()));
+    var user = manager.FindById(User.Identity.GetUserId());
+    //obtiene nombre y apellido de usuario
+
+    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <ul class="nav navbar-nav navbar-right" style="font-family: 'Roboto Condensed', sans-serif; font-size: 1.5rem; text-transform:uppercase">
+            <li>
+                @Html.ActionLink("Hola " + user.Nombre + " " + user.Apellido + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+            </li>
+            <li><a href="javascript:document.getElementById('logoutForm').submit()">Cerrar sesión</a></li>
+        </ul>
+    }
+}
+else
+{
+    <ul class="nav navbar-nav navbar-right" style="font-family: 'Roboto Condensed', sans-serif; font-size: 1.5rem; text-transform:uppercase">
+        <li>@Html.ActionLink("Registrarse", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+        <li>@Html.ActionLink("Iniciar sesión", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+    </ul>
+}

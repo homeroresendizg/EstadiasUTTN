@@ -1,0 +1,53 @@
+﻿@model EstadiasUTTN.Models.IndexViewModel
+@{
+    ViewBag.Title = "Administrar";
+}
+
+<h2>@ViewBag.Title.</h2>
+
+<p class="text-success">@ViewBag.StatusMessage</p>
+<div>
+<div class="row">
+    <div class="col-md-8">
+        <section id="loginForm">
+            <h4>Cambiar la configuración de la cuenta</h4>
+            <hr />
+            <dl class="dl-horizontal">
+                <dt>Contraseña:</dt>
+                <dd>
+                    [
+                    @if (Model.HasPassword)
+                    {
+                        @Html.ActionLink("Cambiar la contraseña", "ChangePassword")
+                    }
+                    else
+                    {
+                        @Html.ActionLink("Crear", "SetPassword")
+                    }
+                    ]
+                </dd>
+            </dl>
+        </section>
+    </div>
+    <div class="col-md-4">
+        <section id="socialLoginForm">
+            @*Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })*@
+            @if (User.IsInRole("Administrador"))
+            {
+                <h4>Realizar cambios en los roles de usuario.</h4>
+                <hr />
+                <div>
+                    <div align="center">
+                        <p />
+                        <a class="btn btn-success" href="/Account/UserDelete">Eliminar usuario.</a> <p />
+                        <a class="btn btn-success" href="/Account/Roles">Asignar rol a usuario.</a> <p />
+                        <a class="btn btn-success" href="/Account/UserDeleteRol">Eliminar rol de un usuario.</a> <p />
+                        <a class="btn btn-success" href="/Account/UserRolesUpdate">Cambiar rol de un usuario.</a>
+                    </div>
+                </div>
+            }
+            </section>
+    </div>
+</div>
+
+</div>

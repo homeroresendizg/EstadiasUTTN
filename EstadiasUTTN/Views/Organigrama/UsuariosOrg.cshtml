@@ -1,0 +1,66 @@
+﻿@*model List<EstadiasUTTN.Models.ViewModels.ListOrganigramaViewModel>*@
+
+
+@{
+    ViewBag.Title = "Lista de documentos";
+}
+
+<h2>@ViewBag.Title</h2>
+<script type="text/javascript">
+    function DeleteConfirm() {
+        if (confirm("¿Seguro que quiere eliminar este registro?"))
+            return true;
+        else
+            return false;
+    }
+</script>
+<script>
+    function mostrarOcultar(id) {
+        var elemento = document.getElementById(id);
+        if (!elemento) {
+            return true;
+        }
+        if (elemento.style.display == "none") {
+            elemento.style.display = "block"
+        } else {
+            elemento.style.display = "none"
+        };
+        return true;
+    };
+</script>
+
+
+@{
+    if (User.IsInRole("Administrador"))
+    {
+        
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Id</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Fecha</th>
+                    <th scope="col">Enlace</th>
+                    <th scope="col">Eliminar</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var oElemento in Model)
+                {
+                    <tr>
+                        <td>@oElemento.Id</td>
+                        <td>@oElemento.Name</td>
+                        <td>@oElemento.Datetime</td>
+                        <td>@Html.ActionLink("Descargar", "Download", new { ImageName = oElemento.Name }) </td>
+                        <td>@Html.ActionLink("Eliminar", "DeleteFile", new { ImageDelete = oElemento.Name }, new { onclick = "return  DeleteConfirm()" })</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p class="lead">No cuenta con permisos para acceder a esta sección.</p>
+        <p class="lead">Inicie sesión o contacte con un administrador.</p>
+    }
+}
