@@ -583,20 +583,15 @@ namespace EstadiasUTTN.Controllers
             {
                 //db.PA_UserRolesInsert(IdUserName, Rol);
 
-                if(IdUserName != null)
-                {
-                    var oUsuarios = new AspNetUserRoles();
-                    oUsuarios.UserId = IdUserName;
-                    oUsuarios.RoleId = Rol;
+                var oUsuarios = new AspNetUserRoles();
+                oUsuarios.UserId = IdUserName;
+                oUsuarios.RoleId = Rol;
 
-                    db.AspNetUserRoles.Add(oUsuarios);
-                    db.SaveChanges();
-                    ViewBag.Message = "El rol de un usuario se ha establecido con éxito.";
-                }
-                else
-                {
-                    ViewBag.Message = "Se produjo un error al configurar el rol para el usuario. Inténtalo de nuevo.";
-                }                                
+                db.AspNetUserRoles.Add(oUsuarios);
+                db.SaveChanges();
+                ViewBag.Message = "Se ha establecido correctamente el rol de un usuario.";
+
+                
             }
 
             return View("Info");
@@ -641,33 +636,22 @@ namespace EstadiasUTTN.Controllers
         [HttpPost]
         public ActionResult UserDelete(string UserId)
         {
-            if(UserId != null)
+            using (EstadiasUTTNEntities db = new EstadiasUTTNEntities())
             {
-                using (EstadiasUTTNEntities db = new EstadiasUTTNEntities())
-                {
-                    var x = (from d in db.AspNetUsers
-                             where d.Id == UserId
-                             select d).FirstOrDefault();
+                var x = (from d in db.AspNetUsers
+                         where d.Id == UserId
+                         select d).FirstOrDefault();
 
-                    var xd = (from d in db.AspNetUserRoles
-                              where d.UserId == UserId
-                              select d).FirstOrDefault();
+                var xd = (from d in db.AspNetUserRoles
+                          where d.UserId == UserId
+                          select d).FirstOrDefault();
 
-                    db.AspNetUsers.Remove(x);
-
-                    if (xd != null)
-                        db.AspNetUserRoles.Remove(xd);
-
-                    db.SaveChanges();
-                }
-                ViewBag.Message = "El usuario ha sido eliminado con éxito.";
+                db.AspNetUsers.Remove(x);
+                db.AspNetUserRoles.Remove(xd);
+                db.SaveChanges();
             }
-            else
-            {
-                ViewBag.Message = "Se produjo un error al eliminar el usuario. Inténtalo de nuevo.";
-            }
+            ViewBag.Message = "Se ha eliminado correctamente el usuario y su rol.";
             return View("Info");
-
         }
 
         public ActionResult UserDeleteRol()
@@ -712,24 +696,16 @@ namespace EstadiasUTTN.Controllers
         [HttpPost]
         public ActionResult UserDeleteRol(string UserId)
         {
-            if(UserId != null)
+            using (EstadiasUTTNEntities db = new EstadiasUTTNEntities())
             {
-                using (EstadiasUTTNEntities db = new EstadiasUTTNEntities())
-                {
-                    var x = (from d in db.AspNetUserRoles
-                             where d.UserId == UserId
-                             select d).FirstOrDefault();
+                var x = (from d in db.AspNetUserRoles
+                         where d.UserId == UserId
+                         select d).FirstOrDefault();
 
-                    db.AspNetUserRoles.Remove(x);
-                    db.SaveChanges();
-                }
-                ViewBag.Message = "Se ha eliminado correctamente el rol de un usuario.";
+                db.AspNetUserRoles.Remove(x);
+                db.SaveChanges();
             }
-            else
-            {
-                ViewBag.Message = "Se produjo un error al eliminar el rol de el usuario. Inténtalo de nuevo.";
-            }
-            
+            ViewBag.Message = "Se ha eliminado correctamente el rol de un usuario.";
             return View("Info");
         }
 
@@ -794,35 +770,14 @@ namespace EstadiasUTTN.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult UserRolesUpdate(string RoleId, string UserId)
+        public ActionResult UserRolesUpdate(int RoleId, string UserId)
         {
-            if (UserId != null)
+            using (EstadiasUTTNEntities db = new EstadiasUTTNEntities())
             {
-                using (EstadiasUTTNEntities db = new EstadiasUTTNEntities())
-                {
-                    //Elimina el rol del usuario seleccionado
-                    var x = (from d in db.AspNetUserRoles
-                             where d.UserId == UserId
-                             select d).FirstOrDefault();
-
-                    db.AspNetUserRoles.Remove(x);
-
-                    //Se establece el nuevo rol
-                    var oUsuarios = new AspNetUserRoles();
-                    oUsuarios.UserId = UserId;
-                    oUsuarios.RoleId = RoleId;
-
-                    db.AspNetUserRoles.Add(oUsuarios);
-
-                    //Guarda cambios en BD
-                    db.SaveChanges();
-                }
-                ViewBag.Message = "El rol de un usuario se ha cambiado correctamente.";
+                db.PA_UserRolesUpdate(RoleId, UserId);
+                db.SaveChanges();
             }
-            else
-            {
-                ViewBag.Message = "Se produjo un error al cambiar el rol de un usuario. Inténtalo de nuevo.";
-            }
+            ViewBag.Message = "Se ha cambiado correctamente el rol de un usuario.";
             return View("Info");
         }
     }

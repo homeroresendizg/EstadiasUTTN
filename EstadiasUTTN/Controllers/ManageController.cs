@@ -7,8 +7,6 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using EstadiasUTTN.Models;
-using EstadiasUTTN.Models.ViewModels;
-using System.Collections.Generic;
 
 namespace EstadiasUTTN.Controllers
 {
@@ -244,55 +242,6 @@ namespace EstadiasUTTN.Controllers
             }
             AddErrors(result);
             return View(model);
-        }
-
-        public ActionResult ChangeEmail()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> ChangeEmail(ChangeEmailViewModel model)
-        {
-            if (!ModelState.IsValid)
-            {
-                return View(model);
-            }
-
-            var user = User.Identity.GetUserId();
-            
-            using(EstadiasUTTNEntities db = new EstadiasUTTNEntities())
-            {
-                var userid = (from d in db.AspNetUsers
-                              where d.Id == user
-                              select d).FirstOrDefault();
-
-                var useremail = (from d in db.AspNetUsers
-                                 where d.Email == model.NewEmail
-                                 select d).FirstOrDefault();
-
-                if(useremail == null)
-                {
-                    userid.Email = model.NewEmail;
-                    userid.EmailConfirmed = false;
-
-                    db.SaveChanges();
-                    string code = await UserManager.GenerateEmailConfirmationTokenAsync(user);
-                    var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user, code = code }, protocol: Request.Url.Scheme);
-                    await UserManager.SendEmailAsync(user, "Confirmar cuenta", " \"" + callbackUrl + "\"");
-                    ViewBag.Message = "Revisa tu correo electrónico y confirma tu cuenta con tu nuevo correo electrónico, debe estar confirmado "
-                         + "antes de poder iniciar sesión nuevamente.";
-
-                    return View("Info");
-                }
-                else
-                {
-                    ViewBag.Message = "Este correo electrónico ya está registrado, intenta con otro.";
-                    return View("Info");
-                }
-
-            }
         }
 
         //

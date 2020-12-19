@@ -58,25 +58,6 @@ namespace EstadiasUTTN.Models
         public string ConfirmPassword { get; set; }
     }
 
-    public class ChangeEmailViewModel
-    {
-        [Required]
-        [EmailAddress]
-        [Display(Name = "Correo electrónico actual")]
-        public string OldEmail { get; set; }
-
-        [Required]
-        [EmailAddress]
-        [Display(Name = "Correo electrónico nuevo")]
-        public string NewEmail { get; set; }
-
-        [Required]
-        [EmailAddress]
-        [Display(Name = "Confirme el correo electrónico")]
-        [Compare("NewEmail", ErrorMessage = "El correo electrónico nuevo y el correo electrónico de confirmación no coinciden.")]
-        public string ConfirmEmail { get; set; }
-    }
-
     public class AddPhoneNumberViewModel
     {
         [Required]

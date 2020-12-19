@@ -5,59 +5,45 @@
     List<SelectListItem> roles = (List<SelectListItem>)ViewBag.roles;
 }
 
-<h1>
-    <strong>@ViewBag.Title</strong>
-</h1>
+<h2>@ViewBag.Title</h2>
+
 
 @{
     if (User.IsInRole("Administrador"))
     {
         using (Html.BeginForm("UserRolesUpdate", "Account", FormMethod.Post))
         {
-            if (usuarios.Count != 0)
-            {
-                <div class="row">
-                    <div class="col-md-12">
-                        <div>
-                            @Html.Label("Seleccione a un usuario")
-                            <br />
-                            @Html.DropDownList("UserId", usuarios, new { @class = "form-control" })
-
-                            @Html.ValidationMessage("UserId", null, new { @class = "red" })
-                        </div>
-                        <div>
-                            @Html.Label("Seleccione el rol a asignar.")
-                            <br />
-                            @Html.DropDownList("RoleId", roles, new { @class = "form-control" })
-
-                            @Html.ValidationMessage("RoleId", null, new { @class = "red" })
-                        </div>
-
-
+            <div class="row">
+                <div class="col-md-12">
+                    <div>
+                        @Html.Label("Seleccione a un usuario")
                         <br />
-                        <div style="text-align:right">
-                            <input value="Guardar" class="btn btn-primary" type="submit" />
-                        </div>
+                        @Html.DropDownList("UserId", usuarios, new { @class = "form-control" })
+
+                        @Html.ValidationMessage("UserId", null, new { @class = "red" })
+                    </div>
+                    <div>
+                        @Html.Label("Seleccione el rol a asignar.")
+                        <br />
+                        @Html.DropDownList("RoleId", roles, new { @class = "form-control" })
+
+                        @Html.ValidationMessage("RoleId", null, new { @class = "red" })
+                    </div>
+
+
+                    <br />
+                    <div style="text-align:right">
+                        <input value="Guardar" class="btn btn-primary" type="submit" />
                     </div>
                 </div>
-            }
-            else
-            {
-                <main role="main" class="flex-shrink-0">
-                    <div>
-                        <p class="lead">No hay suficientes usuarios con rol asignado.</p>
-                        <p class="lead">Para cambiar el rol de un usuario intente agregar un rol a un usuario.</p>
-                    </div>
-                </main>
-            }
-
+            </div>
         }
 
     }
     else
     {
         <main role="main" class="flex-shrink-0">
-            <div>
+            <div class="container">
                 <p class="lead">No cuenta con permisos para acceder a esta sección.</p>
                 <p class="lead">Inicie sesión o contacte con un administrador.</p>
             </div>
