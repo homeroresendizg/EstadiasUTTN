@@ -1,49 +1,61 @@
 ﻿@model EstadiasUTTN.Models.ViewModels.ListUsersViewModel
 @{
-    ViewBag.Title = "Roles";
+    ViewBag.Title = "Asignar rol al usuario";
     List<SelectListItem> usuarios = (List<SelectListItem>)ViewBag.usuarios;
     List<SelectListItem> roles = (List<SelectListItem>)ViewBag.roles;
 }
 
-<h2>Roles</h2>
-
+<h1>
+    <strong>@ViewBag.Title</strong>
+</h1>
 
 @{
     if (User.IsInRole("Administrador"))
     {
         using (Html.BeginForm("Roles", "Account", FormMethod.Post))
         {
-            <div class="row">
-                <div class="col-md-12">
-                    <div>
-                        @Html.Label("Usuario")
+            if (usuarios.Count != 0)
+            {
+                <div class="row">
+                    <div class="col-md-12">
+                        <div>
+                            @Html.Label("Usuario")
+                            <br />
+                            @Html.DropDownList("IdUserName", usuarios, new { @class = "form-control" })
+
+                            @Html.ValidationMessage("IdUserName", null, new { @class = "red" })
+                        </div>
+                        <div>
+                            @Html.Label("Rol")
+                            <br />
+                            @Html.DropDownList("Rol", roles, new { @class = "form-control" })
+
+                            @Html.ValidationMessage("Rol", null, new { @class = "red" })
+                        </div>
+
                         <br />
-                        @Html.DropDownList("IdUserName", usuarios, new { @class = "form-control" })
-
-                        @Html.ValidationMessage("IdUserName", null, new { @class = "red" })
-                    </div>
-                    <div>
-                        @Html.Label("Rol")
-                        <br />
-                        @Html.DropDownList("Rol", roles, new { @class = "form-control" })
-
-                        @Html.ValidationMessage("Rol", null, new { @class = "red" })
-                    </div>
-
-
-                    <br />
-                    <div style="text-align:right">
-                        <input value="Guardar" class="btn btn-primary" type="submit" />
+                        <div style="text-align:right">
+                            <input value="Guardar" class="btn btn-primary" type="submit" />
+                        </div>
                     </div>
                 </div>
-            </div>
+            }
+            else
+            {
+                <main role="main" class="flex-shrink-0">
+                    <div>
+                        <p class="lead">Todos los usuarios tienen un rol asignado.</p>
+                        <p class="lead">Para asignar un rol a un usuario este no debe tener un rol asignado, intente eliminar el rol de un usuario o agregar un nuevo usuario.</p>
+                    </div>
+                </main>
+            }
         }
 
     }
     else
     {
         <main role="main" class="flex-shrink-0">
-            <div class="container">
+            <div>
                 <p class="lead">No cuenta con permisos para acceder a esta sección.</p>
                 <p class="lead">Inicie sesión o contacte con un administrador.</p>
             </div>

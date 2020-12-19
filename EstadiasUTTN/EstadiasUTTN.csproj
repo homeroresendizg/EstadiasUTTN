@@ -183,6 +183,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\OrganigramaController.cs" />
@@ -317,37 +318,6 @@
     <Content Include="Content\xx\bootstrap-theme.min.css.map" />
     <Content Include="Content\xx\bootstrap.css.map" />
     <Content Include="Content\xx\bootstrap.min.css.map" />
-    <Content Include="Archivos\Organigrama\20201207054600.xlsx" />
-    <Content Include="Archivos\Organigrama\20201207104802.xlsx" />
-    <Content Include="Archivos\Organigrama\20201207104901.xlsx" />
-    <Content Include="Archivos\Organigrama\20201207110225.xlsx" />
-    <Content Include="Archivos\Organigrama\20201207110849.xlsx" />
-    <Content Include="Archivos\Organigrama\20201207111633.xlsx" />
-    <Content Include="Archivos\Organigrama\20201207111918.xlsx" />
-    <Content Include="Archivos\Organigrama\20201207111950.xlsx" />
-    <Content Include="Archivos\Organigrama\20201207112008.xlsx" />
-    <Content Include="Archivos\Organigrama\20201207112257.xlsx" />
-    <Content Include="Archivos\Organigrama\20201207112820.xlsx" />
-    <Content Include="Archivos\Organigrama\20201207113916.xlsx" />
-    <Content Include="Archivos\Organigrama\20201207113933.xlsx" />
-    <Content Include="Archivos\Organigrama\20201207114304.xlsx" />
-    <Content Include="Archivos\Organigrama\20201207114525.xlsx" />
-    <Content Include="Archivos\Organigrama\20201207114731.xlsx" />
-    <Content Include="Archivos\Organigrama\20201207115025.xlsx" />
-    <Content Include="Archivos\Organigrama\20201207115110.xlsx" />
-    <Content Include="Archivos\Organigrama\20201207120122.xlsx" />
-    <Content Include="Archivos\Organigrama\20201207120252.xlsx" />
-    <Content Include="Archivos\Organigrama\20201209035226.xlsx" />
-    <Content Include="Archivos\Organigrama\20201209035237.xlsx" />
-    <Content Include="Archivos\Organigrama\20201209035740.xlsx" />
-    <Content Include="Archivos\Organigrama\20201209035744.xlsx" />
-    <Content Include="Archivos\Organigrama\20201209035817.xlsx" />
-    <Content Include="Archivos\Organigrama\20201209035823.xlsx" />
-    <Content Include="Archivos\Organigrama\20201209035828.xlsx" />
-    <Content Include="Archivos\Organigrama\20201209035833.xlsx" />
-    <Content Include="Archivos\Organigrama\20201209041742.xlsx" />
-    <Content Include="Archivos\Organigrama\20201209042427.xlsx" />
-    <Content Include="Archivos\Organigrama\20201209042433.xlsx" />
     <Content Include="Archivos\Organigrama\ORGANIGRAMA UTTN1.xlsx" />
     <None Include="Properties\PublishProfiles\FTPProfile.pubxml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
@@ -406,6 +376,10 @@
     <Content Include="Views\Account\UserRolesUpdate.cshtml" />
     <Content Include="Views\Account\UserDelete.cshtml" />
     <Content Include="Views\Organigrama\UsuariosOrgAll.cshtml" />
+    <Content Include="Views\Error\PageNotFound.cshtml" />
+    <Content Include="Views\Error\InternalServerError.cshtml" />
+    <Content Include="Views\Error\General.cshtml" />
+    <Content Include="Views\Manage\ChangeEmail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
