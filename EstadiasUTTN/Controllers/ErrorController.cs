@@ -24,6 +24,11 @@ namespace EstadiasUTTN.Controllers
             return View();
         }
 
+        public ActionResult Forbidden()
+        {
+            return View();
+        }
+
         public ActionResult General()
         {
             return View();

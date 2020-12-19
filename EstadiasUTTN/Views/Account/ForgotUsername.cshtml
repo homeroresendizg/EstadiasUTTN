@@ -1,13 +1,13 @@
-﻿@model EstadiasUTTN.Models.ForgotPasswordViewModel
+﻿@model EstadiasUTTN.Models.ForgotUsernameViewModel
 @{
-    ViewBag.Title = "¿Olvidó su contraseña?";
+    ViewBag.Title = "¿Olvidó su nombre de usuario?";
 }
 
 <h1>
     <strong>@ViewBag.Title</strong>
 </h1>
 
-@using (Html.BeginForm("ForgotPassword", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+@using (Html.BeginForm("ForgotUsername", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
 {
     @Html.AntiForgeryToken()
     <h4>Especifique su correo electrónico.</h4>
@@ -21,7 +21,7 @@
     </div>
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
-            <input type="submit" class="btn btn-default" value="Vínculo de correo electrónico" />
+            <input type="submit" class="btn btn-default" value="Enviar nombre de usuario" />
         </div>
     </div>
 }

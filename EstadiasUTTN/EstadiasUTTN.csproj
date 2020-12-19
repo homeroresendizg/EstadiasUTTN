@@ -233,6 +233,7 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Base de datos\estadiasuttn.sql" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -319,7 +320,9 @@
     <Content Include="Content\xx\bootstrap.css.map" />
     <Content Include="Content\xx\bootstrap.min.css.map" />
     <Content Include="Archivos\Organigrama\ORGANIGRAMA UTTN1.xlsx" />
+    <None Include="Properties\PublishProfiles\Documentos.pubxml" />
     <None Include="Properties\PublishProfiles\FTPProfile.pubxml" />
+    <None Include="Properties\PublishProfiles\IIS.pubxml" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -380,6 +383,10 @@
     <Content Include="Views\Error\InternalServerError.cshtml" />
     <Content Include="Views\Error\General.cshtml" />
     <Content Include="Views\Manage\ChangeEmail.cshtml" />
+    <Content Include="Views\Error\Forbidden.cshtml" />
+    <Content Include="Views\Manage\ChangeUsername.cshtml" />
+    <Content Include="Views\Account\ForgotUsernameConfirmation.cshtml" />
+    <Content Include="Views\Account\ForgotUsername.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

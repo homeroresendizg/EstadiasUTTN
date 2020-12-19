@@ -38,6 +38,9 @@ namespace EstadiasUTTN
                     case 500:
                         route.Values.Add("action", "InternalServerError");
                         break;
+                    case 403:
+                        route.Values.Add("action", "Forbidden");
+                        break;
                     default:
                         route.Values.Add("action", "General");
                         break;
@@ -48,5 +51,25 @@ namespace EstadiasUTTN
             IController errorcontroller = new ErrorController();
             errorcontroller.Execute(new RequestContext(new HttpContextWrapper(Context), route));
         }
+
+        /*void Application_EndRequest(object sender, EventArgs e)
+        {
+            if (Response.StatusCode == 404)
+            {
+                Response.ClearContent();
+                Response.Redirect("/Error/PageNotFound");
+            }
+            switch (Response.StatusCode)//aki me quede xd
+            {
+                case 404:
+                    Response.ClearContent();
+                    Response.Redirect("/Error/PageNotFound");
+                    break;
+                case (int)403.14:
+                    Response.ClearContent();
+                    Response.Redirect("/Error/Forbidden");
+                    break;
+            }
+        }*/
     }
 }

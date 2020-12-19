@@ -77,6 +77,22 @@ namespace EstadiasUTTN.Models
         public string ConfirmEmail { get; set; }
     }
 
+    public class ChangeUsernameViewModel
+    {
+        [Required]
+        [Display(Name = "Nombre de usuario actual")]
+        public string OldUsername { get; set; }
+
+        [Required]
+        [Display(Name = "Nombre de usuario nuevo")]
+        public string NewUsername { get; set; }
+
+        [Required]
+        [Display(Name = "Confirme el nombre de usuario")]
+        [Compare("NewUsername", ErrorMessage = "El nombre de usuario nuevo y el nombre de usuario de confirmación no coinciden.")]
+        public string ConfirmUsername { get; set; }
+    }
+
     public class AddPhoneNumberViewModel
     {
         [Required]

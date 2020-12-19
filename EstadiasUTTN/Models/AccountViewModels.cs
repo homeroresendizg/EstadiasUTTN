@@ -121,4 +121,12 @@ namespace EstadiasUTTN.Models
         [Display(Name = "Correo electrónico")]
         public string Email { get; set; }
     }
+
+    public class ForgotUsernameViewModel
+    {
+        [Required]
+        [EmailAddress]
+        [Display(Name = "Correo electrónico")]
+        public string Email { get; set; }
+    }
 }

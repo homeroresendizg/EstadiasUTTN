@@ -295,6 +295,50 @@ namespace EstadiasUTTN.Controllers
             }
         }
 
+        public ActionResult ChangeUsername()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult ChangeUsername(ChangeUsernameViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            var user = User.Identity.GetUserId();
+
+            using (EstadiasUTTNEntities db = new EstadiasUTTNEntities())
+            {
+                var userid = (from d in db.AspNetUsers
+                              where d.Id == user
+                              select d).FirstOrDefault();
+
+                var username = (from d in db.AspNetUsers
+                                where d.UserName == model.NewUsername
+                                select d).FirstOrDefault();
+
+                if (username == null)
+                {
+                    userid.UserName = model.NewUsername;
+
+                    db.SaveChanges();
+                    ViewBag.Message = "Tu nombre de usuario ha cambiado.";
+
+                    return View("Info");
+                }
+                else
+                {
+                    ViewBag.Message = "Este nombre de usuario ya está registrado, intenta con otro.";
+                    return View("Info");
+                }
+
+            }
+        }
+
         //
         // GET: /Manage/SetPassword
         public ActionResult SetPassword()

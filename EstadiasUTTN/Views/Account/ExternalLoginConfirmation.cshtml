@@ -2,7 +2,9 @@
 @{
     ViewBag.Title = "Registrarse";
 }
-<h2>@ViewBag.Title.</h2>
+<h1>
+    <strong>@ViewBag.Title</strong>
+</h1>
 <h3>Asocie su cuenta @ViewBag.LoginProvider.</h3>
 
 @using (Html.BeginForm("ExternalLoginConfirmation", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))

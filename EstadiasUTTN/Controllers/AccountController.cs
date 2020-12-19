@@ -167,27 +167,45 @@ namespace EstadiasUTTN.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
-            if (ModelState.IsValid)
+            using (EstadiasUTTNEntities db = new EstadiasUTTNEntities())
             {
-                var user = new ApplicationUser { Nombre = model.Nombre, Apellido = model.Apellido, UserName = model.NombreDeUsuario, Email = model.Email };
-                var result = await UserManager.CreateAsync(user, model.Password);
-                if (result.Succeeded)
+                var usuariosverify = (from d in db.AspNetUsers
+                                      select d).FirstOrDefault();
+
+
+                if (ModelState.IsValid)
                 {
-                    await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    
-                    // Para obtener más información sobre cómo habilitar la confirmación de cuentas y el restablecimiento de contraseña, visite https://go.microsoft.com/fwlink/?LinkID=320771
-                    // Enviar correo electrónico con este vínculo
-                    string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                    var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                    await UserManager.SendEmailAsync(user.Id, "Confirmar cuenta", " \"" + callbackUrl + "\"");
-                    ViewBag.Message = "Revisa tu correo electrónico y confirma tu cuenta, debe estar confirmado "
-                         + "antes de poder iniciar sesión.";
+                    var user = new ApplicationUser { Nombre = model.Nombre, Apellido = model.Apellido, UserName = model.NombreDeUsuario, Email = model.Email };
+                    var result = await UserManager.CreateAsync(user, model.Password);
+                    if (result.Succeeded)
+                    {
+                        //la siguiente linea inicia sesion despues de registrar usuario.
+                        //await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
 
-                    return View("Info");
+                        // Para obtener más información sobre cómo habilitar la confirmación de cuentas y el restablecimiento de contraseña, visite https://go.microsoft.com/fwlink/?LinkID=320771
+                        // Enviar correo electrónico con este vínculo
+                        string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                        var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                        await UserManager.SendEmailAsync(user.Id, "Confirmar cuenta", "Para confirmar su cuenta haga clic o ingrese al siguiente enlace: \"" + callbackUrl + "\"");
+                        //await UserManager.SendEmailAsync(user.Id, "Restablecer contraseña", "Para restablecer la contraseña, haga clic o ingrese al siguiente enlace: \"" + callbackUrl + "\"");
+                        ViewBag.Message = "Revisa tu correo electrónico y confirma tu cuenta, debe estar confirmado "
+                             + "antes de poder iniciar sesión.";
 
-                    //return RedirectToAction("Index", "Home");
+                        if (usuariosverify == null)
+                        {
+                            var oUsuarios = new AspNetUserRoles();
+                            oUsuarios.UserId = user.Id;
+                            oUsuarios.RoleId = "1";
+
+                            db.AspNetUserRoles.Add(oUsuarios);
+                            db.SaveChanges();
+                        }
+                        return View("Info");
+
+                        //return RedirectToAction("Index", "Home");
+                    }
+                    AddErrors(result);
                 }
-                AddErrors(result);
             }
 
             // Si llegamos a este punto, es que se ha producido un error y volvemos a mostrar el formulario
@@ -236,8 +254,52 @@ namespace EstadiasUTTN.Controllers
                 // Enviar correo electrónico con este vínculo
                 string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
                 var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);		
-                await UserManager.SendEmailAsync(user.Id, "Restablecer contraseña", "Para restablecer la contraseña, haga clic en el siguiente enlace: \"" + callbackUrl + "\"");
+                await UserManager.SendEmailAsync(user.Id, "Restablecer contraseña", "Para restablecer la contraseña haga clic o ingrese al siguiente enlace: \"" + callbackUrl + "\"");
                 return RedirectToAction("ForgotPasswordConfirmation", "Account");
+            }
+
+            // Si llegamos a este punto, es que se ha producido un error y volvemos a mostrar el formulario
+            return View(model);
+        }
+
+        //
+        // GET: /Account/ForgotUsername
+        [AllowAnonymous]
+        public ActionResult ForgotUsername()
+        {
+            return View();
+        }
+
+        //
+        // POST: /Account/ForgotPassword
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> ForgotUsername(ForgotUsernameViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                //var user = await UserManager.FindByNameAsync(model.Email);
+                var user = await UserManager.FindByEmailAsync(model.Email);
+                if (user == null || !(await UserManager.IsEmailConfirmedAsync(user.Id)))
+                {
+                    // No revelar que el usuario no existe o que no está confirmado
+                    return View("ForgotUsernameConfirmation");
+                }
+
+                // Para obtener más información sobre cómo habilitar la confirmación de cuentas y el restablecimiento de contraseña, visite https://go.microsoft.com/fwlink/?LinkID=320771
+                // Enviar correo electrónico con este vínculo
+                //string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
+                //var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                using(EstadiasUTTNEntities db = new EstadiasUTTNEntities())
+                {
+                    var username = (from d in db.AspNetUsers
+                                    where d.Email == model.Email
+                                    select d.UserName).FirstOrDefault();
+                
+                await UserManager.SendEmailAsync(user.Id, "Restablecer nombre de usuario", "Por si lo olvidaste, tu nombre de usuario es el siguiente: \"" + username + "\" 😉");
+                return RedirectToAction("ForgotUsernameConfirmation", "Account");
+                }
             }
 
             // Si llegamos a este punto, es que se ha producido un error y volvemos a mostrar el formulario
@@ -248,6 +310,14 @@ namespace EstadiasUTTN.Controllers
         // GET: /Account/ForgotPasswordConfirmation
         [AllowAnonymous]
         public ActionResult ForgotPasswordConfirmation()
+        {
+            return View();
+        }
+
+        //
+        // GET: /Account/ForgotUsernameConfirmation
+        [AllowAnonymous]
+        public ActionResult ForgotUsernameConfirmation()
         {
             return View();
         }

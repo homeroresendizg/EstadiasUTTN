@@ -32,7 +32,7 @@ namespace EstadiasUTTN
         {
             #region formatter
             string text = string.Format("Haga clic en este enlace para {0}: {1}", message.Subject, message.Body);
-            string html = "Confirme su cuenta haciendo clic en este enlace: <a href=\"" + message.Body + "\">link</a><br/>";
+            string html = "";
 
             html += HttpUtility.HtmlEncode(@" " + message.Body);
             #endregion

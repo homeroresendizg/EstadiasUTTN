@@ -4,7 +4,9 @@
     ViewBag.Title = "Iniciar sesión";
 }
 
-<h2>@ViewBag.Title.</h2>
+<h1>
+    <strong>@ViewBag.Title</strong>
+</h1>
 <div class="row">
     <div class="col-md-8">
         <section id="loginForm">
@@ -44,9 +46,12 @@
                 <p>
                     @Html.ActionLink("Registrarse como usuario nuevo", "Register")
                 </p>
-                    <p>
-                        @Html.ActionLink("¿Ha olvidado su contraseña?", "ForgotPassword")
-                    </p>
+                <p>
+                    @Html.ActionLink("¿Ha olvidado su nombre de usuario?", "ForgotUsername")
+                </p>
+                <p>
+                    @Html.ActionLink("¿Ha olvidado su contraseña?", "ForgotPassword")
+                </p>
             }
         </section>
     </div>
