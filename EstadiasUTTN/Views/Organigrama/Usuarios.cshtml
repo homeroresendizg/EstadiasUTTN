@@ -3,6 +3,9 @@
     ViewBag.Title = "Usuarios";
 }
 
+<h1>
+    <strong>@ViewBag.Title</strong>
+</h1>
 
 <script>
     function mostrarOcultar(id) {
@@ -23,11 +26,12 @@
     {
         using (Html.BeginForm("Usuarios", "Organigrama", FormMethod.Post, new { enctype = "multipart/form-data" }))
         {
-            <div class="row" style="text-align:left;padding:30px">
-                <h1>@ViewBag.Title</h1>
+            <div>
                 <a href="~/Organigrama/UsuariosOrgAll" class="btn btn-primary">Todos los registros</a>
             </div>
-            <div class="container">
+            <br />
+
+            <div>
                 <div class="table-responsive">
                     <table class="table">
                         <tr>

@@ -3,7 +3,9 @@
     ViewBag.Title = "Administrar";
 }
 
-<h2>@ViewBag.Title.</h2>
+<h1>
+    <strong>@ViewBag.Title</strong>
+</h1>
 
 <p class="text-success">@ViewBag.StatusMessage</p>
 <div>
@@ -12,6 +14,10 @@
         <section id="loginForm">
             <h4>Cambiar la configuración de la cuenta</h4>
             <hr />
+            @if (User.IsInRole("Administrador"))
+            {
+                <p>Usted es Administrador</p>
+            }
             <dl class="dl-horizontal">
                 <dt>Contraseña:</dt>
                 <dd>
@@ -26,6 +32,10 @@
                     }
                     ]
                 </dd>
+                <dt>Correo electrónico:</dt>
+                <dd>
+                    [ @Html.ActionLink("Cambiar correo electrónico", "ChangeEmail") ]
+                </dd>
             </dl>
         </section>
     </div>
@@ -34,15 +44,15 @@
             @*Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })*@
             @if (User.IsInRole("Administrador"))
             {
-                <h4>Realizar cambios en los roles de usuario.</h4>
+                <h4>Realizar cambios en los roles de usuario</h4>
                 <hr />
                 <div>
                     <div align="center">
                         <p />
-                        <a class="btn btn-success" href="/Account/UserDelete">Eliminar usuario.</a> <p />
-                        <a class="btn btn-success" href="/Account/Roles">Asignar rol a usuario.</a> <p />
-                        <a class="btn btn-success" href="/Account/UserDeleteRol">Eliminar rol de un usuario.</a> <p />
-                        <a class="btn btn-success" href="/Account/UserRolesUpdate">Cambiar rol de un usuario.</a>
+                        <a class="btn btn-success" href="/Account/UserDelete">Eliminar usuario</a> <p />
+                        <a class="btn btn-success" href="/Account/Roles">Asignar rol a usuario</a> <p />
+                        <a class="btn btn-success" href="/Account/UserDeleteRol">Eliminar rol de un usuario</a> <p />
+                        <a class="btn btn-success" href="/Account/UserRolesUpdate">Cambiar rol de un usuario</a>
                     </div>
                 </div>
             }

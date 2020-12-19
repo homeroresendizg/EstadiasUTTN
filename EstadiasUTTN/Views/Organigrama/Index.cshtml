@@ -1,17 +1,17 @@
 ﻿
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Plantilla";
 }
 
-<div class="container">
-    <h1>Plantilla</h1>
-</div>
+<h1>
+    <strong>@ViewBag.Title</strong>
+</h1>
 
 @{
     if (User.IsInRole("Usuario") || User.IsInRole("Administrador"))
     {
         <main role="main" class="flex-shrink-0">
-            <div class="container">
+            <div>
                 <h1 class="mt-5">Para ingresar nuevos archivos se debe usar la plantilla requerida</h1>
                 <p class="lead">Descargue <a href="/Organigrama/Plantilla">la plantilla de organigrama</a> si no la tiene.</p>
 
@@ -24,7 +24,7 @@
     else
     {
         <main role="main" class="flex-shrink-0">
-            <div class="container">
+            <div>
                 <p class="lead">No cuenta con permisos para acceder a esta sección.</p>
                 <p class="lead">Inicie sesión o contacte con un administrador.</p>
             </div>
