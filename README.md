@@ -55,8 +55,6 @@ _Al ejecutar el proyecto por primera vez, debe registrar una cuenta con una dire
 
 ## Autor ✒️
 
-_Menciona a todos aquellos que ayudaron a levantar el proyecto desde sus inicios_
-
 * **Homero Francisco Resendiz Garcia** - *Trabajo Inicial* - [homeroresendizg](https://github.com/homeroresendizg)
 
 
