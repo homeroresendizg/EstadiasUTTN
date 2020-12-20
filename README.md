@@ -26,15 +26,16 @@ _Cambia la cadena de conexión de la base de datos en el archivo Web.config_
 <add name="EstadiasUTTNEntities" connectionString="metadata=res://*/Models.DB.csdl|res://*/Models.DB.ssdl|res://*/Models.DB.msl;provider=System.Data.SqlClient;provider connection string=&quot;data source=(LocalDb)\MSSQLLocalDB;attachdbfilename=|DataDirectory|\aspnet-EstadiasUTTN-20201126063537.mdf;initial catalog=aspnet-EstadiasUTTN-20201126063537;integrated security=True;MultipleActiveResultSets=True;App=EntityFramework&quot;" providerName="System.Data.EntityClient" />
 ```
 
-_Cambia las credenciales de acceso para la cuenta que envia correos en el archivo Web.config (tiene que ser Gmail, permitir acceso a apps menos seguras en el apartado de seguridad de la cuenta y en el correo en el apartado de Reenvío y correo POP/IMAP habilitar el acceso IMAP_
+_Cambie las credenciales de acceso para la cuenta que envía correos electrónicos en el archivo Web.config (debe ser Gmail, permitE el acceso a aplicaciones menos seguras en la sección de seguridad de la cuenta y en el correo en la sección Reenvío y correo POP/IMAP, habilita el acceso IMAP_
+
 _Introducir credenciales en las siguientes lineas de codigo:_
 ```
 <!--Credenciales de acceso para correo electrónico.-->
-<add key="Email" value="Aquí va el correo xd" />
+<add key="Email" value="Aquí va el correo" />
 <add key="Password" value="Aquí va la contraseña" />
 ```
 
-_Ejecuta el script sql que se encuentra en la carpeta "Base de datos"_
+_Ejecuta el script sql que se encuentra en la carpeta "Base de datos" (MSSQL)_
 
 _Para instalar este proyecto inicia Visual Studio como administrador y publica el proyecto en la ruta C:inetpub\wwwroot_
 
@@ -43,12 +44,10 @@ _Tambien puedes ejecutarlo con IIS Express desde Visual Studio o publicar los ar
 
 ## Ejecutando el proyecto por primera vez ⚙️
 
-_Al ejecutar el proyecto por primera vez, deberas registrar una cuenta con un correo electronico real, pues se te enviara un correo de confirmación y esa cuenta tendra el rol de administrador por defecto, para los siguientes registros el administrador debera de otorgar un rol_
+_Al ejecutar el proyecto por primera vez, debe registrar una cuenta con una dirección de correo electrónico real, ya que se le enviará un correo electrónico de confirmación y esa cuenta tendrá el rol de administrador predeterminado, para los siguientes registros el administrador debe otorgar un rol_
 
 
 ## Construido con 🛠️
-
-_Menciona las herramientas que utilizaste para crear tu proyecto_
 
 * [ASP.NET MVC](https://dotnet.microsoft.com/apps/aspnet/mvc) - El framework web usado
 * [Microsoft Visual Studio](https://visualstudio.microsoft.com/es/) - Entorno de desarrollo
