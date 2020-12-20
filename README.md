@@ -26,7 +26,7 @@ _Cambia la cadena de conexión de la base de datos en el archivo Web.config_
 <add name="EstadiasUTTNEntities" connectionString="metadata=res://*/Models.DB.csdl|res://*/Models.DB.ssdl|res://*/Models.DB.msl;provider=System.Data.SqlClient;provider connection string=&quot;data source=(LocalDb)\MSSQLLocalDB;attachdbfilename=|DataDirectory|\aspnet-EstadiasUTTN-20201126063537.mdf;initial catalog=aspnet-EstadiasUTTN-20201126063537;integrated security=True;MultipleActiveResultSets=True;App=EntityFramework&quot;" providerName="System.Data.EntityClient" />
 ```
 
-_Cambie las credenciales de acceso para la cuenta que envía correos electrónicos en el archivo Web.config (debe ser Gmail, permitE el acceso a aplicaciones menos seguras en la sección de seguridad de la cuenta y en el correo en la sección Reenvío y correo POP/IMAP, habilita el acceso IMAP_
+_Cambie las credenciales de acceso para la cuenta que envía correos electrónicos en el archivo Web.config (debe ser Gmail), permita el acceso a aplicaciones menos seguras en la sección de seguridad de la cuenta y en el correo en la sección Reenvío y correo POP/IMAP, habilita el acceso IMAP_
 
 _Introducir credenciales en las siguientes lineas de codigo:_
 ```
